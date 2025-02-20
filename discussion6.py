@@ -17,9 +17,26 @@ def load_csv(f):
 
     base_path = os.path.abspath(os.path.dirname(__file__))
     full_path = os.path.join(base_path, f)
-    
-    data = {}
     # use this 'full_path' variable as the file that you open
+    with open(full_path) as fh:
+        r = csv.reader(fh)
+        rows = []
+        for row in r:
+            rows.append(row)
+    d={}
+    header = rows[0]
+    for row in rows[1:]:
+        year = row[0]
+        month = row [1]
+        value = row [2]
+
+        if year not in data:
+            d[year] = {}
+
+        d[year][month] = value
+
+    return d
+
 
 def get_annual_max(d):
     '''
@@ -33,7 +50,7 @@ def get_annual_max(d):
     Note: Don't strip or otherwise modify strings. Do not change datatypes except where necessary.
         You'll have to change vals to int to compare them. 
     '''
-    result = []
+pass
 
 def get_month_avg(d):
     '''
@@ -47,7 +64,6 @@ def get_month_avg(d):
     Note: Don't strip or otherwise modify strings. Do not change datatypes except where necessary. 
         You'll have to make the vals int or float here and round the avg to pass tests.
     '''
-    averages = {}
 
 class dis7_test(unittest.TestCase):
     '''
